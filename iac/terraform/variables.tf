@@ -1,6 +1,22 @@
+#region locals
+locals {
+
+  tags = {
+    Environment             = var.environment
+    Owner                   = "Chaminda"
+    System                  = "${var.environment}_iac"
+    SystemClassification    = "restricted - proprietary information"
+    CreatedBy               = data.azurerm_client_config.current.object_id
+    Project                 = "${var.environment}_iac"
+    FiscalEntity            = "demo"
+    SourceControlManagement = "github.com/chamindac/valkey_on_aks"
+  }
+}
+#endregion locals
+
 #region common variables
 variable "environment" {
-  description = "Environment for the deployment (e.g., dev, prod, qa, shared)"
+  description = "Environment for the deployment (e.g., poc, dev, prod, qa, shared)"
   type        = string
 }
 
