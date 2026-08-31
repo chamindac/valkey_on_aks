@@ -1,6 +1,8 @@
 #region locals
 locals {
 
+  kubernetes_version = "1.36.3"
+
   instance_name              = "${var.environment}-${var.region_short_code}-${var.instance_id}"
   instance_short_name        = "${var.environment}${var.region_short_code}${var.instance_id}"
   resource_name_prefix       = "${var.prefix}-${var.project_code}-${local.instance_name}"
