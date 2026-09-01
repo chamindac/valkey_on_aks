@@ -46,9 +46,9 @@ resource "azurerm_kubernetes_cluster" "aks_vnet" {
     node_count                   = 1
     min_count                    = 1
     max_count                    = 3
-    max_pods                     = 30
+    max_pods                     = local.sh_aks_vnet_max_pods
     scale_down_mode              = "Delete"
-    vm_size                      = "Standard_D2s_v6"
+    vm_size                      = local.sh_aks_system_vm_size
     os_sku                       = "Ubuntu"
     os_disk_type                 = "Managed"
     vnet_subnet_id               = azurerm_subnet.aks_node_snet.id

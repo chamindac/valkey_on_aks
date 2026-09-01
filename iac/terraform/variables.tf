@@ -8,6 +8,25 @@ locals {
   resource_name_prefix       = "${var.prefix}-${var.project_code}-${local.instance_name}"
   resource_short_name_prefix = "${var.prefix}${var.project_code}${local.instance_short_name}"
 
+  deployment_phase_deploy  = "deploy"
+  deployment_phase_switch  = "switch"
+  deployment_phase_destroy = "destroy"
+
+  deployment_name_blue  = "blue"
+  deployment_name_green = "green"
+
+  # Cluster-wide max pods per node for the self-host AKS VNet cluster (Azure CNI Pod Subnet mode).
+  sh_aks_vnet_max_pods  = 30
+  sh_aks_system_vm_size = "Standard_D2s_v6"
+  sh_aks_valkey_vm_size = "Standard_D4s_v6"
+
+  # Self-host Valkey node pool sizing (3 nodes x 1 per zone; 9 pods = 3 shards x 2 replicas spread across zones).
+  sh_valkey_nodepool = {
+    node_count     = 3
+    min_node_count = 3
+    max_node_count = 15
+  }
+
   tags = {
     Environment             = var.environment
     Owner                   = "Chaminda"
@@ -74,3 +93,26 @@ variable "aks_pod_subnet_cidr" {
   type        = string
 }
 #endregion networking variables
+
+#region Blue-Green deployment control variables
+variable "sys_sh_is_blue_deployed" {
+  type = bool
+}
+
+variable "sys_sh_is_green_deployed" {
+  type = bool
+}
+
+variable "sys_sh_is_green_live" {
+  type = bool
+}
+
+variable "sys_sh_deployment_phase" {
+  type = string
+
+  validation {
+    condition     = contains(["deploy", "switch", "destroy"], var.sys_sh_deployment_phase)
+    error_message = "Valid values for var.sys_sh_deployment_phase are: (deploy, switch or destroy)."
+  }
+}
+#endregion
