@@ -125,3 +125,17 @@ resource "azurerm_kubernetes_cluster" "aks_vnet" {
     Service = "aks vnet cluster"
   }), local.tags)
 }
+
+module "aks_vnet_addons" {
+  source = "./modules/aksaddons"
+
+  sub_owners_objectid = data.azuread_group.sub_owners.object_id
+
+  acr_id                    = data.azurerm_container_registry.cr.id
+  cluster_kubelet_object_id = azurerm_kubernetes_cluster.aks_vnet.kubelet_identity[0].object_id
+  node_resource_group_name  = azurerm_kubernetes_cluster.aks_vnet.node_resource_group
+
+  depends_on = [
+    azurerm_kubernetes_cluster.aks_vnet
+  ]
+}
