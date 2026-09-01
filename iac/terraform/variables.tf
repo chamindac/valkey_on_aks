@@ -27,6 +27,9 @@ locals {
     max_node_count = 15
   }
 
+  aks_vnet_dns_prefix = "sh.aks.vnet"
+  valkey_route_prefix = "valkey"
+
   tags = {
     Environment             = var.environment
     Owner                   = "Chaminda"
@@ -93,6 +96,20 @@ variable "aks_pod_subnet_cidr" {
   type        = string
 }
 #endregion networking variables
+
+#region Nginx-Gateway
+variable "sh_private_ip_nginx_gateway_vnet" {
+  description = "Selfhost AKS vnet private IP in aks_node_subnet_cidr for Nginx-Gateway"
+  type        = string
+}
+#endregion Nginx-Gateway
+
+#region Valkey
+variable "sh_private_ip_valkey" {
+  description = "Selfhost AKS vnet private IP in aks_node_subnet_cidr for Valkey bootstrap internal LB"
+  type        = string
+}
+#endregion Valkey
 
 #region Blue-Green deployment control variables
 variable "sys_sh_is_blue_deployed" {

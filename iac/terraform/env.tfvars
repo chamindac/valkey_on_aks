@@ -14,6 +14,14 @@ aks_node_subnet_cidr = "10.12.0.0/21"
 aks_pod_subnet_cidr  = "10.12.8.0/21"
 #endregion networking variables
 
+#region Nginx-Gateway
+sh_private_ip_nginx_gateway_vnet = "#{sh_private_ip_nginx_gateway_vnet}#"
+#endregion
+
+#region Valkey
+sh_private_ip_valkey = "#{sh_private_ip_valkey}#"
+#endregion
+
 #region Blue-Green deployment control variables
 sys_sh_is_blue_deployed  = "#{sys_sh_is_blue_deployed}#"
 sys_sh_is_green_deployed = "#{sys_sh_is_green_deployed}#"
