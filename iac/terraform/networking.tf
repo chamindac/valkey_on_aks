@@ -32,6 +32,15 @@ resource "azurerm_subnet" "aks_pod_snet" {
   address_prefixes                  = ["${var.aks_pod_subnet_cidr}"]
   private_endpoint_network_policies = "Enabled"
   default_outbound_access_enabled   = true
+
+  delegation {
+    name = "aks-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerService/managedClusters"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+    }
+  }
 }
 
 # Assign user assigned id of aks to aksnode subnet
