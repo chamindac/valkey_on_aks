@@ -17,8 +17,8 @@ locals {
 
   # Cluster-wide max pods per node for the self-host AKS VNet cluster (Azure CNI Pod Subnet mode).
   sh_aks_vnet_max_pods  = 30
-  sh_aks_system_vm_size = "Standard_D2s_v6"
-  sh_aks_valkey_vm_size = "Standard_D4s_v6"
+  sh_aks_system_vm_size = "Standard_D2s_v7"
+  sh_aks_valkey_vm_size = "Standard_D4s_v7"
 
   # Self-host Valkey node pool sizing (3 nodes x 1 per zone; 9 pods = 3 shards x 2 replicas spread across zones).
   sh_valkey_nodepool = {
